@@ -1,0 +1,13 @@
+/* src/components/Footer.css */
+.footer {
+    height: 35px;
+    background-color: #282c34;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+  }
+  

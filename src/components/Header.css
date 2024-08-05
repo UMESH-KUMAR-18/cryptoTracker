@@ -1,0 +1,47 @@
+/* src/components/Header.css */
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 7px;
+    background-color: #282c34;
+    color: white;
+  }
+
+  .header nav{
+    display: contents;
+  }
+  
+  .header nav ul {
+    list-style: none;
+    display: flex;
+    gap: 2rem;
+    margin: 0;
+  }
+  
+  .header nav ul li {
+    margin: 0;
+  }
+  
+  .header nav a:hover{
+    /* border-bottom: 2px solid ; */
+    color: rgb(76, 76, 232);
+  }
+  .header nav a {
+    color: white;
+    text-decoration: none;
+    font-weight: lighter;
+    font-size: larger;
+  }
+
+ 
+  
+  .header input {
+    padding: 0.5rem;
+    font-size: 1rem;
+    border-radius: 13px;
+    border-style: none;
+    height: 14px;
+    
+  }
+  
