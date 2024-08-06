@@ -7,9 +7,11 @@ const PORT = process.env.PORT || 5000;
 const API_KEY = process.env.CMC_API_KEY;
 
 app.get('/cryptocurrencies', async (req, res) => {
+  const start = req.query.start || 1;
   try {
     const response = await axios.get('https://pro-api.coinmarketcap.com/v1/cryptocurrency/listings/latest', {
       params: {
+        start,
         limit: 10, // Limit to 10 cryptocurrencies
       },
       headers: {
