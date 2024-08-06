@@ -5,101 +5,133 @@ import Footer from '../components/Footer';
 import './CryptoConverter.css';
 
 const CryptoConverter = () => {
-  const [cryptos, setCryptos] = useState([]);
-  const [fromCrypto, setFromCrypto] = useState('');
-  const [toCrypto, setToCrypto] = useState('');
-  const [amount, setAmount] = useState(1);
-  const [convertedAmount, setConvertedAmount] = useState(null);
-  const [loading, setLoading] = useState(false);
+  const [amount, setAmount] = useState('');
+  const [fromCurrency, setFromCurrency] = useState('');
+  const [toCurrency, setToCurrency] = useState('');
+  const [conversionResult, setConversionResult] = useState(null);
+  const [cryptoList, setCryptoList] = useState([]);
+  const [error, setError] = useState('');
+  const [fromCurrencyPrice, setFromCurrencyPrice] = useState(null);
 
   useEffect(() => {
     const fetchCryptos = async () => {
       try {
-        const response = await axios.get('/cryptocurrencies');
-        setCryptos(response.data.data);
-        if (response.data.data.length > 0) {
-          setFromCrypto(response.data.data[0].symbol);
-          setToCrypto(response.data.data[1].symbol);
-        }
+        const response = await axios.get('/cryptocurrencies', {
+          params: { start: 1, limit: 100 } // Increase the limit to fetch more cryptocurrencies
+        });
+        setCryptoList(response.data.data);
       } catch (error) {
         console.error('Error fetching cryptocurrencies:', error);
       }
     };
-
     fetchCryptos();
   }, []);
 
-  const handleConvert = async () => {
-    if (!fromCrypto || !toCrypto || !amount) {
-      alert('Please fill all fields');
-      return;
-    }
+  const handleSwap = () => {
+    const temp = fromCurrency;
+    setFromCurrency(toCurrency);
+    setToCurrency(temp);
+  };
 
-    setLoading(true);
+  const handleCalculate = async () => {
+    if (fromCurrency && toCurrency && amount) {
+      const fromCurrencyExists = cryptoList.some((crypto) => crypto.symbol === fromCurrency);
+      const toCurrencyExists = cryptoList.some((crypto) => crypto.symbol === toCurrency);
 
-    try {
-      const response = await axios.get('/cryptocurrencies');
-      const data = response.data.data;
-
-      const fromCryptoData = data.find(crypto => crypto.symbol === fromCrypto);
-      const toCryptoData = data.find(crypto => crypto.symbol === toCrypto);
-
-      if (!fromCryptoData || !toCryptoData) {
-        alert('Invalid cryptocurrency selected');
-        setLoading(false);
+      if (!fromCurrencyExists || !toCurrencyExists) {
+        setError("Coin doesn't exist");
+        setConversionResult(null); // Clear previous conversion result
+        setFromCurrencyPrice(null); // Clear previous price
         return;
       }
 
-      const conversionRate = fromCryptoData.quote.USD.price / toCryptoData.quote.USD.price;
-      setConvertedAmount(amount * conversionRate);
-      setLoading(false);
-    } catch (error) {
-      console.error('Error converting cryptocurrencies:', error);
-      setLoading(false);
+      try {
+        // Fetch conversion rate
+        const response = await axios.get('/convert', {
+          params: {
+            amount,
+            from: fromCurrency,
+            to: toCurrency
+          }
+        });
+        setConversionResult(response.data.result);
+
+        // Fetch single coin price in USDT
+        const priceResponse = await axios.get('/convert', {
+          params: {
+            amount: 1,
+            from: fromCurrency,
+            to: 'USDT'
+          }
+        });
+        setFromCurrencyPrice(priceResponse.data.result);
+        
+        setError(''); // Clear any previous errors
+      } catch (error) {
+        console.error('Error converting currencies:', error);
+        setError('Error converting currencies');
+        setConversionResult(null); // Clear previous conversion result
+        setFromCurrencyPrice(null); // Clear previous price
+      }
+    } else {
+      setError('Please fill out all fields');
+      setConversionResult(null); // Clear previous conversion result
+      setFromCurrencyPrice(null); // Clear previous price
     }
   };
 
   return (
-    <div className="crypto-converter">
-      <h1>Cryptocurrency Converter</h1>
-      <div className="converter-container">
-        <div className="input-section">
+    <div className='convContainer'>
+      <div className="converter">
+        <h2 style={{textAlign:'center',margin:"8px",color:"rgb(103, 97, 197)"}}>Crypto Converter</h2>
+        <div className="input-group">
+          <label>Amount</label>
           <input
             type="number"
             value={amount}
             onChange={(e) => setAmount(e.target.value)}
-            placeholder="Amount"
+            placeholder="Enter amount"
           />
-          <select
-            value={fromCrypto}
-            onChange={(e) => setFromCrypto(e.target.value)}
-          >
-            {cryptos.map(crypto => (
-              <option key={crypto.id} value={crypto.symbol}>
-                {crypto.name} ({crypto.symbol})
-              </option>
-            ))}
-          </select>
-          <button onClick={handleConvert} className="convert-button">⇅</button>
-          <select
-            value={toCrypto}
-            onChange={(e) => setToCrypto(e.target.value)}
-          >
-            {cryptos.map(crypto => (
-              <option key={crypto.id} value={crypto.symbol}>
-                {crypto.name} ({crypto.symbol})
-              </option>
-            ))}
-          </select>
         </div>
-        {loading ? (
-          <div>Loading...</div>
-        ) : (
-          convertedAmount !== null && (
-            <div className="result-section">
-              <p>{amount} {fromCrypto} = {convertedAmount.toFixed(6)} {toCrypto}</p>
-            </div>
-          )
+        <div className="input-group">
+          <label>From</label>
+          <input
+            type="text"
+            value={fromCurrency}
+            onChange={(e) => setFromCurrency(e.target.value.toUpperCase())}
+            placeholder="Search currency"
+            list="cryptoList"
+          />
+          <datalist id="cryptoList">
+            {cryptoList.map((crypto) => (
+              <option key={crypto.id} value={crypto.symbol}>{crypto.name}</option>
+            ))}
+          </datalist>
+        </div>
+        <button onClick={handleSwap}>Swap</button>
+        <div className="input-group">
+          <label>To</label>
+          <input
+            type="text"
+            value={toCurrency}
+            onChange={(e) => setToCurrency(e.target.value.toUpperCase())}
+            placeholder="Search currency"
+            list="cryptoList"
+          />
+          <datalist id="cryptoList">
+            {cryptoList.map((crypto) => (
+              <option key={crypto.id} value={crypto.symbol}>{crypto.name}</option>
+            ))}
+          </datalist>
+        </div>
+        <button onClick={handleCalculate}>Calculate</button>
+        {error && <div className="error">{error}</div>}
+        {conversionResult !== null && (
+          <div className="result">
+            <h2>Conversion Result</h2>
+            <p>{amount} {fromCurrency} = {conversionResult} {toCurrency}</p>
+            <p>{fromCurrency} Price in USDT: {fromCurrencyPrice !== null ? `$${fromCurrencyPrice.toFixed(2)}` : 'Fetching...'}</p>
+          </div>
         )}
       </div>
       <Footer />

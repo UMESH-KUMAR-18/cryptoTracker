@@ -25,6 +25,26 @@ app.get('/cryptocurrencies', async (req, res) => {
   }
 });
 
+app.get('/convert', async (req, res) => {
+  const { amount, from, to } = req.query;
+  try {
+    const response = await axios.get('https://pro-api.coinmarketcap.com/v1/tools/price-conversion', {
+      params: {
+        amount,
+        symbol: from,
+        convert: to,
+      },
+      headers: {
+        'X-CMC_PRO_API_KEY': API_KEY,
+      },
+    });
+    res.json({ result: response.data.data.quote[to].price });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Failed to convert currency' });
+  }
+});
+
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });
