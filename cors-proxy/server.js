@@ -25,6 +25,23 @@ app.get('/cryptocurrencies', async (req, res) => {
   }
 });
 
+app.get('/cryptocurrency', async (req, res) => {
+  try {
+    const symbol = req.query.symbol.toUpperCase();
+    const response = await axios.get(`https://pro-api.coinmarketcap.com/v1/cryptocurrency/quotes/latest`, {
+      params: { symbol },
+      headers: {
+        'X-CMC_PRO_API_KEY': API_KEY,
+      },
+    });
+
+    res.json(response.data);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Failed to fetch data' });
+  }
+});
+
 app.get('/convert', async (req, res) => {
   const { amount, from, to } = req.query;
   try {
