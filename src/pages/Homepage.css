@@ -1,0 +1,69 @@
+.homepage {
+    padding: 20px;
+  }
+  
+  .crypto-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+  }
+  
+  .crypto-table tr:hover {
+    background-color: #ddd;
+  }
+
+  .cryptoTable{
+    display: flex;
+    justify-content: center;
+  }
+
+  /*First animation - terminal text animation*/
+.intro h1{
+  overflow: hidden; /* Ensures the content is not revealed until the animation */
+  border-right: .15em solid orange; /* The typwriter cursor */
+  white-space: nowrap; /* Keeps the content on a single line */
+  /* Gives that scrolling effect as the typing happens */
+  animation: 
+    typing 3s steps(40, end),
+    blink-caret .75s step-end infinite;
+}
+
+/* The typing effect */
+@keyframes typing {
+  from { width: 0 }
+  to { width: 100% }
+}
+
+/* The typewriter cursor effect */
+@keyframes blink-caret {
+  from, to { border-color: transparent }
+}
+
+
+  table{
+    margin-top: 1%;
+    width: 80%;
+    border-collapse: collapse;
+  }
+  th{
+    text-align: right;
+    border-top: 2px solid gray;
+    border-bottom: 2px solid gray;
+    padding-top: 8px;
+    padding-bottom: 7px;
+  }
+  td{
+    padding-bottom: 4px;
+    text-align: right;
+  }
+  
+  .intro{
+    margin-left: 50px;
+  }
+
+  .navigation{
+    text-align: right;
+    font-size: 22px;
+    margin-right: 15%;
+    margin-top: 1%;
+  }
