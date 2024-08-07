@@ -16,12 +16,12 @@ const CryptoTable = ({ cryptos, loading, onNext, onPrev, page }) => {
         <table>
           <thead>
             <tr>
-              <th>Sr. No</th>
+              <th>#</th>
               <th style={{textAlign:'center'}}>Name</th>
               <th>Price</th>
-              <th id='tar1'>24h % Change</th>
-              <th>24h Volume</th>
-              <th>Last 7 Days % Change</th>
+              <th >24h %</th>
+              <th id='tar1'>24h Volume</th>
+              <th>Last 7D %</th>
             </tr>
           </thead>
           <tbody>
