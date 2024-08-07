@@ -21,7 +21,7 @@ const CryptoTable = ({ cryptos, loading, onNext, onPrev, page }) => {
               <th>Price</th>
               <th >24h %</th>
               <th id='tar1'>24h Volume</th>
-              <th>Last 7D %</th>
+              <th>7D %</th>
             </tr>
           </thead>
           <tbody>

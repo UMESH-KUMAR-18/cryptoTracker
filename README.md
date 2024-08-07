@@ -1,70 +1,34 @@
-# Getting Started with Create React App
+# My Crypto Tracker
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+My Crypto Tracker is a web application designed to track cryptocurrency prices and conversions. The application is built using React for the frontend and Node.js for the backend. It fetches cryptocurrency data from the CoinMarketCap API and provides real-time updates to users.
 
-## Available Scripts
+## Architecture Choice and Reasoning
 
-In the project directory, you can run:
+### Frontend
+- **React:** Chosen for its component-based architecture and efficient rendering capabilities, which are essential for building a dynamic and interactive user interface.
+- **React Router:** Used for navigation between different pages of the application.
+- **Axios:** Utilized for making HTTP requests to fetch data from the CoinMarketCap API.
+- **CSS Modules:** Employed for styling components to ensure that styles are scoped locally and do not affect other parts of the application.
 
-### `npm start`
-
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
-
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
-
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+### Backend
+- **Node.js:** Chosen for its non-blocking, event-driven architecture, which is well-suited for I/O-heavy operations such as making API requests.
+- **Express:** Used as the web server framework to handle HTTP requests and responses.
+- **CORS Proxy:** Implemented to bypass the same-origin policy, allowing the frontend to make requests to the CoinMarketCap API.
 
 ### Deployment
+- **Netlify:** Used for hosting the frontend. It offers continuous deployment and easy integration with GitHub.
+- **Render:** Used for hosting the backend. It provides a seamless way to deploy and manage Node.js applications.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+## Features
+- **Homepage:** Displays a list of cryptocurrencies with their logos, current traded values, and net rise/fall in prices over the last 24 hours and 7 days.
+- **CryptoConverter:** Allows users to convert from one cryptocurrency to another, showing real-time conversion rates.
+- **Search Functionality:** Users can search for specific cryptocurrencies and view detailed information in a floating card.
 
-### `npm run build` fails to minify
+## Usage
+- Visit the [deployed application](https://your-app-url.netlify.app) to start tracking cryptocurrencies.
+- Use the search bar to find specific cryptocurrencies.
+- Navigate to the CryptoConverter page to convert between different cryptocurrencies.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+## License
+This project is licensed under the MIT License - see the LICENSE file for details.
+
