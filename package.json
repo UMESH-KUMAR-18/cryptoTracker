@@ -38,7 +38,7 @@
       "last 1 safari version"
     ]
   },
-  "proxy": "http://localhost:5000",
+  "proxy": "https://cryptotracker-1v42.onrender.com",
   "devDependencies": {
     "concurrently": "^8.2.2"
   }
