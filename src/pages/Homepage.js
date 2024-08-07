@@ -3,10 +3,12 @@ import axios from 'axios';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import './Homepage.css';
+import '../components/mediaQuery.css';
+
 
 const CryptoTable = ({ cryptos, loading, onNext, onPrev, page }) => {
   return (
-    <div>
+    <div className='homep'>
       <div className='intro'>
         <h1>Hi, Welcome to <span style={{color:'#6761c5'}}>MY Crypto Tracker</span></h1>
       </div>
@@ -14,23 +16,22 @@ const CryptoTable = ({ cryptos, loading, onNext, onPrev, page }) => {
         <table>
           <thead>
             <tr>
-              <th>Sr. No</th>
+              <th>#</th>
               <th style={{textAlign:'center'}}>Name</th>
               <th>Price</th>
-              <th>24h % Change</th>
-              <th>24h Volume</th>
-              <th>Last 7 Days % Change</th>
+              <th>24h%</th>
+              <th id='tar1'>24h Volume</th>
+              <th> 7d%</th>
             </tr>
           </thead>
           <tbody>
             {cryptos.map((crypto, index) => (
               <tr key={crypto.id}>
                 <td style={{textAlign:'center'}}>{(page - 1) * 10 + index + 1}</td>
-                <td style={{textAlign:'center'}}>
+                <td id ="size" style={{textAlign:'center'}}>
                   <img
                     src={`https://s2.coinmarketcap.com/static/img/coins/64x64/${crypto.id}.png`}
                     alt={crypto.name}
-                    style={{ width: '24px', height: '24px', marginRight: '8px' }}
                   />
                   {crypto.name} ({crypto.symbol})
                 </td>
@@ -42,7 +43,7 @@ const CryptoTable = ({ cryptos, loading, onNext, onPrev, page }) => {
                 >
                   {crypto.quote.USD.percent_change_24h.toFixed(2)}%
                 </td>
-                <td>${crypto.quote.USD.volume_24h.toLocaleString()}</td>
+                <td id='tar1'>${crypto.quote.USD.volume_24h.toLocaleString()}</td>
                 <td
                   style={{
                     color: crypto.quote.USD.percent_change_7d >= 0 ? 'green' : 'red'

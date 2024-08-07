@@ -1,0 +1,28 @@
+/* Responsive Styles for Mobile (max-width: 480px) */
+@media (max-width: 480px) {
+  
+    .navigation {
+      text-align: center;
+      margin-right: 0;
+      margin-top: 10px;
+    }
+  
+    table {
+      width: 100%;
+    }
+  
+    th, td {
+      text-align: left;
+      padding: 5px;
+    }
+  
+  
+    .input-group input {
+      width: 100%;
+    }
+  
+  
+    .result {
+      padding: 5px;
+    }
+  }

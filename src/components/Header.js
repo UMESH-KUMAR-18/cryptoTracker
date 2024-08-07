@@ -2,6 +2,8 @@ import React, { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 import './Header.css';
+import './mediaQuery.css';
+
 
 const Header = () => {
   const [searchQuery, setSearchQuery] = useState('');

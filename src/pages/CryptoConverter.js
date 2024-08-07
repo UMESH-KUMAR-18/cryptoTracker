@@ -3,6 +3,7 @@ import axios from 'axios';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import './CryptoConverter.css';
+import '../components/mediaQuery.css';
 
 const CryptoConverter = () => {
   const [amount, setAmount] = useState('');

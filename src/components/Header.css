@@ -6,7 +6,9 @@
     padding: 7px;
     background-color: #282c34;
     color: white;
-    position: relative;
+    position: fixed;
+    width: 100%;
+    box-sizing: border-box;
   }
 
   .header nav{
@@ -90,6 +92,12 @@
 
   .top{
     display: flex;
+  }
+
+  @media (max-width: 480px) {
+    .header nav a{
+      font-weight: bold;
+    }
   }
   
   
