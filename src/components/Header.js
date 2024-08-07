@@ -4,7 +4,6 @@ import { Link } from 'react-router-dom';
 import './Header.css';
 import './mediaQuery.css';
 
-
 const Header = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const [cryptoData, setCryptoData] = useState(null);
@@ -39,7 +38,7 @@ const Header = () => {
     }
 
     try {
-      const response = await axios.get(`/cryptocurrency`, {
+      const response = await axios.get(`https://cryptotracker-1v42.onrender.com/cryptocurrency`, {
         params: { symbol: searchQuery.trim().toUpperCase() }
       });
 

@@ -1,10 +1,14 @@
 const express = require('express');
 const axios = require('axios');
+const cors = require('cors');
 require('dotenv').config();
 
 const app = express();
 const PORT = process.env.PORT || 5000;
 const API_KEY = process.env.CMC_API_KEY;
+
+// Enable CORS for all routes
+app.use(cors());
 
 app.get('/cryptocurrencies', async (req, res) => {
   const start = req.query.start || 1;

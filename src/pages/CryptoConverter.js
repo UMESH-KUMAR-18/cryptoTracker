@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-//import Header from '../components/Header';
 import Footer from '../components/Footer';
 import './CryptoConverter.css';
 import '../components/mediaQuery.css';
@@ -17,8 +16,8 @@ const CryptoConverter = () => {
   useEffect(() => {
     const fetchCryptos = async () => {
       try {
-        const response = await axios.get('/cryptocurrencies', {
-          params: { start: 1, limit: 100 } // Increase the limit to fetch more cryptocurrencies
+        const response = await axios.get('https://cryptotracker-1v42.onrender.com/cryptocurrencies', {
+          params: { start: 1, limit: 100 }
         });
         setCryptoList(response.data.data);
       } catch (error) {
@@ -41,14 +40,13 @@ const CryptoConverter = () => {
 
       if (!fromCurrencyExists || !toCurrencyExists) {
         setError("Coin doesn't exist");
-        setConversionResult(null); // Clear previous conversion result
-        setFromCurrencyPrice(null); // Clear previous price
+        setConversionResult(null);
+        setFromCurrencyPrice(null);
         return;
       }
 
       try {
-        // Fetch conversion rate
-        const response = await axios.get('/convert', {
+        const response = await axios.get('https://cryptotracker-1v42.onrender.com/convert', {
           params: {
             amount,
             from: fromCurrency,
@@ -57,8 +55,7 @@ const CryptoConverter = () => {
         });
         setConversionResult(response.data.result);
 
-        // Fetch single coin price in USDT
-        const priceResponse = await axios.get('/convert', {
+        const priceResponse = await axios.get('https://cryptotracker-1v42.onrender.com/convert', {
           params: {
             amount: 1,
             from: fromCurrency,
@@ -67,17 +64,17 @@ const CryptoConverter = () => {
         });
         setFromCurrencyPrice(priceResponse.data.result);
         
-        setError(''); // Clear any previous errors
+        setError('');
       } catch (error) {
         console.error('Error converting currencies:', error);
         setError('Error converting currencies');
-        setConversionResult(null); // Clear previous conversion result
-        setFromCurrencyPrice(null); // Clear previous price
+        setConversionResult(null);
+        setFromCurrencyPrice(null);
       }
     } else {
       setError('Please fill out all fields');
-      setConversionResult(null); // Clear previous conversion result
-      setFromCurrencyPrice(null); // Clear previous price
+      setConversionResult(null);
+      setFromCurrencyPrice(null);
     }
   };
 
