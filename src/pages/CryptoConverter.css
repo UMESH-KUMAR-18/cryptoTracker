@@ -55,7 +55,7 @@ button:hover {
 
 @media (max-width: 480px) {
   .convContainer{
-    Padding-top: 19%;
+    Padding-top: 17%;
     height: 85vh;
   }
 }
